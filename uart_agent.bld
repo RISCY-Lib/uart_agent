@@ -1,8 +1,8 @@
 src:
   - src/uart_if.sv
+  - uart_agent_pkg.sv
   - src/uart_driver_bfm.sv
   - src/uart_monitor_bfm.sv
-  - uart_agent_pkg.sv
 
 include:
   - '.'

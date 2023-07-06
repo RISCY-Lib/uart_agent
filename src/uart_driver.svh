@@ -18,31 +18,50 @@
 
 
 //==============================================================================
-// Description: The UART Bus Functional Model - Monitor
+// Description: The UART UVM Driver
 //==============================================================================
 
+`ifndef __UART_DRIVER_SVH__
+`define __UART_DRIVER_SVH__
 
-interface uart_monitor_bfm
-    ( uart_if uart );
-
-    `include "uvm_macros.svh"
-    import uvm_pkg::*;
-    import uart_agent_pkg::*;
+class uart_driver extends uvm_driver #(uart_seq_item);
+    `uvm_component_utils(uart_driver)
 
     //------------------------------------------
     // Members
     //------------------------------------------
-    uart_monitor proxy;
+
+    // Virtual Interface
+    local virtual uart_driver_bfm m_bfm;
 
     // Config
     uart_agent_config m_cfg;
+
+    // Sequence Item
+    uart_seq_item uart_item;
+
+    // TODO: Any custom class members
 
     //------------------------------------------
     // Methods
     //------------------------------------------
 
-    task run();
-        // TODO: Implement moitor run task
-    endtask: run
+    // Standard UVM Methods:
+    function new(string name = "uart_driver", uvm_component parent = null);
+        super.new(name, parent);
+    endfunction
 
-endinterface: uart_monitor_bfm
+    function void build_phase(uvm_phase phase);
+        super.build_phase(phase);
+        `get_config(uart_agent_config, m_cfg, "uart_agent_config")
+        m_bfm = m_cfg.drv_bfm;
+    endfunction : build_phase
+
+    task run_phase(uvm_phase phase);
+
+        // TODO: Implement driving
+
+    endtask: run_phase
+endclass: uart_driver
+
+`endif // __UART_DRIVER_SVH__

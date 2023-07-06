@@ -18,13 +18,12 @@
 
 
 //==============================================================================
-// Description: The UVM UART Interface
+// Description: The Defines for the UVM UART Agent
 //==============================================================================
 
+`ifndef __UART_DEFINES_SVH__
+`define __UART_DEFINES_SVH__
 
-interface uart_if;
-  logic rx;
-  logic tx;
+// TODO: Place any necessary typedefs and defines here
 
-
-endinterface: uart_if
+`endif // __UART_DEFINES_SVH__
