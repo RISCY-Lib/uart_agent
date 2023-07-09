@@ -40,8 +40,6 @@ class uart_driver extends uvm_driver #(uart_seq_item);
     // Sequence Item
     uart_seq_item uart_item;
 
-    // TODO: Any custom class members
-
     //------------------------------------------
     // Methods
     //------------------------------------------
@@ -55,11 +53,19 @@ class uart_driver extends uvm_driver #(uart_seq_item);
         super.build_phase(phase);
         `get_config(uart_agent_config, m_cfg, "uart_agent_config")
         m_bfm = m_cfg.drv_bfm;
+        m_bfm.m_cfg = this.m_cfg;
     endfunction : build_phase
 
     task run_phase(uvm_phase phase);
+        uart_seq_item req;
 
-        // TODO: Implement driving
+        m_bfm.uart_init();
+
+        forever begin
+            seq_item_port.get_next_item(req);
+            m_bfm.drive(req);
+            seq_item_port.item_done();
+        end
 
     endtask: run_phase
 endclass: uart_driver

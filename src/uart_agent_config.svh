@@ -39,7 +39,12 @@ class uart_agent_config extends uvm_object;
     virtual uart_monitor_bfm mon_bfm;
     virtual uart_driver_bfm  drv_bfm;
 
-    // TODO: Add custom configuration
+    // Baud Configuration
+    int baud_rate = 115200;
+
+    // Frame Configuration
+    uart_parity_e parity = NONE;
+    int           stop_bits = 1;
 
     // Is the agent active or passive
     uvm_active_passive_enum active = UVM_ACTIVE;

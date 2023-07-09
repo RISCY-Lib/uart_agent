@@ -31,13 +31,9 @@ class uart_seq_item extends uvm_sequence_item;
     // Data Members (Outputs rand, inputs non-rand)
     //----------------------------------------------
 
-    // TODO: Implement data members
-
-    //------------------------------------------
-    // Constraints
-    //------------------------------------------
-
-    // TODO: Implement Randomization Constraints
+    rand logic [7:0]   data;
+    rand uart_dir_e    dir;
+         logic         parity_correct;
 
     //------------------------------------------
     // Methods
@@ -55,7 +51,9 @@ class uart_seq_item extends uvm_sequence_item;
             `uvm_fatal("do_copy", "cast of rhs object failed")
         end
         super.do_copy(rhs);
-        // TODO: Copy over data members:
+
+        this.data      = to_copy.data;
+        this.dir       = to_copy.dir;
 
     endfunction:do_copy
 
@@ -66,12 +64,22 @@ class uart_seq_item extends uvm_sequence_item;
             `uvm_error("do_copy", "cast of rhs object failed")
             return 0;
         end
-        return super.do_compare(rhs, comparer); // TODO: Add class custom compare
-    endfunction:do_compare
+        return super.do_compare(rhs, comparer) &&
+            to_copy.data           === this.data           &&
+            to_copy.dir            ==  this.dir            &&
+            to_copy.parity_correct === this.parity_correct;
+    endfunction
 
     function string convert2string();
         string s;
-        // TODO: Create string conversion code
+
+        $sformat(s, "uart_seq_item- data: 0x%02X", this.data);
+
+        if (this.dir == RX) $sformat(s, "%s, dir: RX", s);
+        else                $sformat(s, "%s, dir: TX", s);
+
+        $sformat(s, "%s, Parity Correct: %0b", s, this.parity_correct);
+
         return s;
     endfunction:convert2string
 

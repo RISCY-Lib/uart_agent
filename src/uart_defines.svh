@@ -24,6 +24,19 @@
 `ifndef __UART_DEFINES_SVH__
 `define __UART_DEFINES_SVH__
 
-// TODO: Place any necessary typedefs and defines here
+  typedef enum {
+    RX,
+    TX
+  } uart_dir_e;
+
+  typedef enum {
+    NONE,
+    ODD,
+    EVEN
+  } uart_parity_e;
+
+  function realtime rate2period(int baud);
+    rate2period = 1s/baud;
+  endfunction
 
 `endif // __UART_DEFINES_SVH__

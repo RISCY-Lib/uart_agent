@@ -35,8 +35,6 @@ class uart_monitor extends uvm_component;
     //------------------------------------------
     uart_agent_config m_cfg;
 
-    // TODO: Any custom members
-
     //------------------------------------------
     // Component Members
     //------------------------------------------
@@ -61,7 +59,7 @@ class uart_monitor extends uvm_component;
     endfunction: build_phase
 
     task run_phase(uvm_phase phase);
-        // TODO: Run the monitor
+        m_bfm.run();
     endtask: run_phase
 
     function void report_phase(uvm_phase phase);
